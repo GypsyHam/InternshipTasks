@@ -33,7 +33,7 @@ namespace ExceptionsExperiment
 
         private void ThreadingTimer_Tick(object state)
         {
-            NonImplementedMethodWithTryCatch(); // NO LIKEY LOG ERROR
+            NonImplementedMethodWithTryCatch(); // NO LIKEY LogError \_(o.o)_/
         }
 
         void LogError(Exception ex)
@@ -64,9 +64,22 @@ namespace ExceptionsExperiment
             }
         }
 
-        private void btnMethodException_Click(object sender, EventArgs e)
+        private void btnMethodException_Click(object sender, EventArgs e) // doesn't catch NonImplementedMethodWithTryCatch error.
         {
-            NonImplementedMethodWithTryCatch();
+            try
+            {
+                NonImplementedMethodWithTryCatch();
+            }
+            finally
+            {
+                try
+                {
+                    throw new Exception();
+                }catch(Exception ex)
+                {
+                    LogError(ex);
+                }
+            }
         }
 
         void NonImplementedMethodWithTryCatch()
@@ -122,7 +135,7 @@ namespace ExceptionsExperiment
 
         private void btnWrapMethodInTryCatch_Click(object sender, EventArgs e)
         {
-            WrappingNonImplementedMethodInCatch();
+            WrappingNonImplementedMethodInCatch(); // fails at line 114 (where the method fails and not the wrapper)
         }
 
         private void LoopToCallMethodInMethodWithTryCatch()
@@ -131,7 +144,7 @@ namespace ExceptionsExperiment
             {
                 if (i == 2)
                 {
-                    CallingNonImplementedThatHasTryCatch();
+                    CallingNonImplementedThatHasTryCatch(); // fails on line 89
                 }
             }
         }
@@ -156,7 +169,7 @@ namespace ExceptionsExperiment
 
         private void btnLoopM2MWithTryCatch_Click(object sender, EventArgs e)
         {
-            LoopToCallMethodInMethodWithTryCatch();
+            LoopToCallMethodInMethodWithTryCatch(); // error on line 89 (lowest level)
         }
 
         private void btnLoopInsideLoopThatCallsMethodCallMethodTry_Click(object sender, EventArgs e)
@@ -171,7 +184,7 @@ namespace ExceptionsExperiment
         }
 
         private void btnTryCatchFromLoopToMethod_Click(object sender, EventArgs e)
-        {
+        {  // fails on line 114
             try
             {
                 for (int i = 0; i < 5; i++)
@@ -200,12 +213,12 @@ namespace ExceptionsExperiment
 
         private void btnTryWithinTry_Click(object sender, EventArgs e)
         {
-            TryWithinTry(); // deepest try breaks first.
+            TryWithinTry(); // deepest try breaks first. -- line 89
         }
 
         private void btnAsyncTaskLoopTest_Click(object sender, EventArgs e)
         {
-            LoopToCallIntMethodInMethodWithTryCatchTestAsync();
+            LoopToCallIntMethodInMethodWithTryCatchTestAsync(); // line 89
         }
 
         private void btnAsyncVoidTest_Click(object sender, EventArgs e)
