@@ -14,3 +14,4 @@ C:\Git\Sandwich\InternshipTasks\ExceptionsExperiment\obj\Debug\net6.0-windows\re
 C:\Git\Sandwich\InternshipTasks\ExceptionsExperiment\obj\Debug\net6.0-windows\ExceptionsExperiment.pdb
 C:\Git\Sandwich\InternshipTasks\ExceptionsExperiment\obj\Debug\net6.0-windows\ExceptionsExperiment.genruntimeconfig.cache
 C:\Git\Sandwich\InternshipTasks\ExceptionsExperiment\obj\Debug\net6.0-windows\ref\ExceptionsExperiment.dll
+C:\Git\Sandwich\InternshipTasks\ExceptionsExperiment\obj\Debug\net6.0-windows\ExceptionsExperiment.sourcelink.json

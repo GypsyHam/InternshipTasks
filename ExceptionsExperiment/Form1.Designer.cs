@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             button1 = new Button();
             btnMethodException = new Button();
             btnM2MWithTry = new Button();
@@ -36,6 +37,13 @@
             btnLoopInsideLoopThatCallsMethodCallMethodTry = new Button();
             btnTryCatchFromLoopToMethod = new Button();
             btnTryWithinTry = new Button();
+            btnAsyncLoopTest = new Button();
+            btnAsyncVoidTest = new Button();
+            testTimer = new System.Windows.Forms.Timer(components);
+            btnFormTimerStart = new Button();
+            btnAsyncNoCatch = new Button();
+            rtxtLog = new RichTextBox();
+            btnThreadTimer = new Button();
             SuspendLayout();
             // 
             // button1
@@ -118,11 +126,80 @@
             btnTryWithinTry.UseVisualStyleBackColor = true;
             btnTryWithinTry.Click += btnTryWithinTry_Click;
             // 
+            // btnAsyncLoopTest
+            // 
+            btnAsyncLoopTest.Location = new Point(37, 387);
+            btnAsyncLoopTest.Name = "btnAsyncLoopTest";
+            btnAsyncLoopTest.Size = new Size(241, 23);
+            btnAsyncLoopTest.TabIndex = 8;
+            btnAsyncLoopTest.Text = "Try Loop Async Task";
+            btnAsyncLoopTest.UseVisualStyleBackColor = true;
+            btnAsyncLoopTest.Click += btnAsyncTaskLoopTest_Click;
+            // 
+            // btnAsyncVoidTest
+            // 
+            btnAsyncVoidTest.Location = new Point(37, 432);
+            btnAsyncVoidTest.Name = "btnAsyncVoidTest";
+            btnAsyncVoidTest.Size = new Size(241, 23);
+            btnAsyncVoidTest.TabIndex = 9;
+            btnAsyncVoidTest.Text = "Try Async Void";
+            btnAsyncVoidTest.UseVisualStyleBackColor = true;
+            btnAsyncVoidTest.Click += btnAsyncVoidTest_Click;
+            // 
+            // testTimer
+            // 
+            testTimer.Interval = 1000;
+            testTimer.Tick += testTimer_Tick;
+            // 
+            // btnFormTimerStart
+            // 
+            btnFormTimerStart.Location = new Point(37, 521);
+            btnFormTimerStart.Name = "btnFormTimerStart";
+            btnFormTimerStart.Size = new Size(241, 23);
+            btnFormTimerStart.TabIndex = 10;
+            btnFormTimerStart.Text = "Start Form Timer";
+            btnFormTimerStart.UseVisualStyleBackColor = true;
+            btnFormTimerStart.Click += btnFormTimerStart_Click;
+            // 
+            // btnAsyncNoCatch
+            // 
+            btnAsyncNoCatch.Location = new Point(37, 477);
+            btnAsyncNoCatch.Name = "btnAsyncNoCatch";
+            btnAsyncNoCatch.Size = new Size(241, 23);
+            btnAsyncNoCatch.TabIndex = 11;
+            btnAsyncNoCatch.Text = "Async No Catch";
+            btnAsyncNoCatch.UseVisualStyleBackColor = true;
+            btnAsyncNoCatch.Click += btnAsyncNoCatch_Click;
+            // 
+            // rtxtLog
+            // 
+            rtxtLog.Location = new Point(330, 27);
+            rtxtLog.Name = "rtxtLog";
+            rtxtLog.Size = new Size(442, 517);
+            rtxtLog.TabIndex = 12;
+            rtxtLog.Text = "";
+            // 
+            // btnThreadTimer
+            // 
+            btnThreadTimer.Location = new Point(37, 563);
+            btnThreadTimer.Name = "btnThreadTimer";
+            btnThreadTimer.Size = new Size(241, 23);
+            btnThreadTimer.TabIndex = 13;
+            btnThreadTimer.Text = "Start Thread Timer";
+            btnThreadTimer.UseVisualStyleBackColor = true;
+            btnThreadTimer.Click += btnThreadTimer_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 636);
+            Controls.Add(btnThreadTimer);
+            Controls.Add(rtxtLog);
+            Controls.Add(btnAsyncNoCatch);
+            Controls.Add(btnFormTimerStart);
+            Controls.Add(btnAsyncVoidTest);
+            Controls.Add(btnAsyncLoopTest);
             Controls.Add(btnTryWithinTry);
             Controls.Add(btnTryCatchFromLoopToMethod);
             Controls.Add(btnLoopInsideLoopThatCallsMethodCallMethodTry);
@@ -146,5 +223,12 @@
         private Button btnLoopInsideLoopThatCallsMethodCallMethodTry;
         private Button btnTryCatchFromLoopToMethod;
         private Button btnTryWithinTry;
+        private Button btnAsyncLoopTest;
+        private Button btnAsyncVoidTest;
+        private System.Windows.Forms.Timer testTimer;
+        private Button btnFormTimerStart;
+        private Button btnAsyncNoCatch;
+        private RichTextBox rtxtLog;
+        private Button btnThreadTimer;
     }
 }
