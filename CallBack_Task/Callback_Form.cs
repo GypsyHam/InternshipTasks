@@ -7,15 +7,11 @@ namespace CallBack_Task
         public Callback_Form()
         {
             InitializeComponent();
-            GetTimerStatusForPanel();
+            UpdateUIByTimerStatus();
         }
 
         SimpleMessageProvider simpleMessageProvider = SimpleMessageProvider.Instance;
 
-        private void btnSubEvent_Click(object sender, EventArgs e)
-        {
-            simpleMessageProvider.Subscribe("AllEvents", HandleSimpleMessage);
-        }
 
         async Task HandleSimpleMessage(SimpleEventArgs e)
         {
@@ -31,22 +27,29 @@ namespace CallBack_Task
                 rtxtEvent.Text += e.Message + "\n";
             }
         }
+        private void btnSubEvent_Click(object sender, EventArgs e)
+        {
+            simpleMessageProvider.Subscribe("AllEvents", HandleSimpleMessage);
+            pnlEventSub.BackColor = Color.Green;
+        }
 
         private void btnUnSubEvent_Click(object sender, EventArgs e)
         {
             simpleMessageProvider.Unsubscribe("AllEvents");
+            pnlEventSub.BackColor = Color.Red;
         }
 
         
         private void btnTimerToggle_Click(object sender, EventArgs e)
         {
             simpleMessageProvider.TimerToggle();
-            GetTimerStatusForPanel();
+            UpdateUIByTimerStatus();
         }
 
-        private void GetTimerStatusForPanel()
+        private void UpdateUIByTimerStatus()
         {
             pnlTimerStatus.BackColor = simpleMessageProvider.IsTimerRunning ? Color.Green : Color.Red;
+            btnTimerToggle.Text = simpleMessageProvider.IsTimerRunning ? "Stop Timer" : "Start Timer";
         }
 
 

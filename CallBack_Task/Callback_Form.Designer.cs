@@ -40,8 +40,13 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            btnTimeToggle = new Button();
+            btnTimerToggle = new Button();
             pnlTimerStatus = new Panel();
+            pnlEventSub = new Panel();
+            pnlEvenSub = new Panel();
+            pnlOddSub = new Panel();
+            label4 = new Label();
+            btnSubAll = new Button();
             SuspendLayout();
             // 
             // btnSubEvent
@@ -151,31 +156,78 @@
             label3.TabIndex = 11;
             label3.Text = "Even";
             // 
-            // btnTimeToggle
+            // btnTimerToggle
             // 
-            btnTimeToggle.Location = new Point(412, 417);
-            btnTimeToggle.Name = "btnTimeToggle";
-            btnTimeToggle.Size = new Size(86, 23);
-            btnTimeToggle.TabIndex = 12;
-            btnTimeToggle.Text = "Time Toggle";
-            btnTimeToggle.UseVisualStyleBackColor = true;
-            btnTimeToggle.Click += btnTimerToggle_Click;
+            btnTimerToggle.Location = new Point(32, 452);
+            btnTimerToggle.Name = "btnTimerToggle";
+            btnTimerToggle.Size = new Size(86, 23);
+            btnTimerToggle.TabIndex = 12;
+            btnTimerToggle.Text = "Timer Toggle";
+            btnTimerToggle.UseVisualStyleBackColor = true;
+            btnTimerToggle.Click += btnTimerToggle_Click;
             // 
             // pnlTimerStatus
             // 
             pnlTimerStatus.BackColor = Color.Red;
-            pnlTimerStatus.Location = new Point(504, 421);
+            pnlTimerStatus.Location = new Point(454, 425);
             pnlTimerStatus.Name = "pnlTimerStatus";
-            pnlTimerStatus.Size = new Size(16, 17);
+            pnlTimerStatus.Size = new Size(10, 10);
             pnlTimerStatus.TabIndex = 13;
+            // 
+            // pnlEventSub
+            // 
+            pnlEventSub.BackColor = Color.Red;
+            pnlEventSub.Location = new Point(22, 12);
+            pnlEventSub.Name = "pnlEventSub";
+            pnlEventSub.Size = new Size(10, 10);
+            pnlEventSub.TabIndex = 14;
+            // 
+            // pnlEvenSub
+            // 
+            pnlEvenSub.BackColor = Color.Red;
+            pnlEvenSub.Location = new Point(206, 12);
+            pnlEvenSub.Name = "pnlEvenSub";
+            pnlEvenSub.Size = new Size(10, 10);
+            pnlEvenSub.TabIndex = 15;
+            // 
+            // pnlOddSub
+            // 
+            pnlOddSub.BackColor = Color.Red;
+            pnlOddSub.Location = new Point(391, 12);
+            pnlOddSub.Name = "pnlOddSub";
+            pnlOddSub.Size = new Size(10, 10);
+            pnlOddSub.TabIndex = 16;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(465, 423);
+            label4.Name = "label4";
+            label4.Size = new Size(85, 15);
+            label4.TabIndex = 17;
+            label4.Text = "Timer Running";
+            // 
+            // btnSubAll
+            // 
+            btnSubAll.Location = new Point(32, 423);
+            btnSubAll.Name = "btnSubAll";
+            btnSubAll.Size = new Size(86, 23);
+            btnSubAll.TabIndex = 19;
+            btnSubAll.Text = "Toggle Subs";
+            btnSubAll.UseVisualStyleBackColor = true;
             // 
             // Callback_Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(585, 450);
+            ClientSize = new Size(600, 481);
+            Controls.Add(btnSubAll);
+            Controls.Add(label4);
+            Controls.Add(pnlOddSub);
+            Controls.Add(pnlEvenSub);
+            Controls.Add(pnlEventSub);
             Controls.Add(pnlTimerStatus);
-            Controls.Add(btnTimeToggle);
+            Controls.Add(btnTimerToggle);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -208,7 +260,12 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private Button btnTimeToggle;
+        private Button btnTimerToggle;
         private Panel pnlTimerStatus;
+        private Panel pnlEventSub;
+        private Panel pnlEvenSub;
+        private Panel pnlOddSub;
+        private Label label4;
+        private Button btnSubAll;
     }
 }
