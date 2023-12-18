@@ -34,12 +34,14 @@
             btnUnSubEvenCallback = new Button();
             btnSubOddCallback = new Button();
             btnUnSubOddCallback = new Button();
-            richTextBox1 = new RichTextBox();
-            richTextBox2 = new RichTextBox();
-            richTextBox3 = new RichTextBox();
+            rtxtEvent = new RichTextBox();
+            rtxtEvenCallback = new RichTextBox();
+            rtxtOddCallback = new RichTextBox();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            btnTimeToggle = new Button();
+            pnlTimerStatus = new Panel();
             SuspendLayout();
             // 
             // btnSubEvent
@@ -60,6 +62,7 @@
             btnUnSubEvent.TabIndex = 1;
             btnUnSubEvent.Text = "Un-Sub";
             btnUnSubEvent.UseVisualStyleBackColor = true;
+            btnUnSubEvent.Click += btnUnSubEvent_Click;
             // 
             // btnSubEvenCallback
             // 
@@ -97,29 +100,29 @@
             btnUnSubOddCallback.Text = "Un-Sub";
             btnUnSubOddCallback.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // rtxtEvent
             // 
-            richTextBox1.Location = new Point(32, 55);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(150, 360);
-            richTextBox1.TabIndex = 6;
-            richTextBox1.Text = "";
+            rtxtEvent.Location = new Point(32, 55);
+            rtxtEvent.Name = "rtxtEvent";
+            rtxtEvent.Size = new Size(150, 360);
+            rtxtEvent.TabIndex = 6;
+            rtxtEvent.Text = "";
             // 
-            // richTextBox2
+            // rtxtEvenCallback
             // 
-            richTextBox2.Location = new Point(216, 55);
-            richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(150, 360);
-            richTextBox2.TabIndex = 7;
-            richTextBox2.Text = "";
+            rtxtEvenCallback.Location = new Point(216, 55);
+            rtxtEvenCallback.Name = "rtxtEvenCallback";
+            rtxtEvenCallback.Size = new Size(150, 360);
+            rtxtEvenCallback.TabIndex = 7;
+            rtxtEvenCallback.Text = "";
             // 
-            // richTextBox3
+            // rtxtOddCallback
             // 
-            richTextBox3.Location = new Point(400, 55);
-            richTextBox3.Name = "richTextBox3";
-            richTextBox3.Size = new Size(150, 360);
-            richTextBox3.TabIndex = 8;
-            richTextBox3.Text = "";
+            rtxtOddCallback.Location = new Point(400, 55);
+            rtxtOddCallback.Name = "rtxtOddCallback";
+            rtxtOddCallback.Size = new Size(150, 360);
+            rtxtOddCallback.TabIndex = 8;
+            rtxtOddCallback.Text = "";
             // 
             // label1
             // 
@@ -148,17 +151,37 @@
             label3.TabIndex = 11;
             label3.Text = "Even";
             // 
+            // btnTimeToggle
+            // 
+            btnTimeToggle.Location = new Point(412, 417);
+            btnTimeToggle.Name = "btnTimeToggle";
+            btnTimeToggle.Size = new Size(86, 23);
+            btnTimeToggle.TabIndex = 12;
+            btnTimeToggle.Text = "Time Toggle";
+            btnTimeToggle.UseVisualStyleBackColor = true;
+            btnTimeToggle.Click += btnTimerToggle_Click;
+            // 
+            // pnlTimerStatus
+            // 
+            pnlTimerStatus.BackColor = Color.Red;
+            pnlTimerStatus.Location = new Point(504, 421);
+            pnlTimerStatus.Name = "pnlTimerStatus";
+            pnlTimerStatus.Size = new Size(16, 17);
+            pnlTimerStatus.TabIndex = 13;
+            // 
             // Callback_Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(585, 450);
+            Controls.Add(pnlTimerStatus);
+            Controls.Add(btnTimeToggle);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(richTextBox3);
-            Controls.Add(richTextBox2);
-            Controls.Add(richTextBox1);
+            Controls.Add(rtxtOddCallback);
+            Controls.Add(rtxtEvenCallback);
+            Controls.Add(rtxtEvent);
             Controls.Add(btnUnSubOddCallback);
             Controls.Add(btnSubOddCallback);
             Controls.Add(btnUnSubEvenCallback);
@@ -179,11 +202,13 @@
         private Button btnUnSubEvenCallback;
         private Button btnSubOddCallback;
         private Button btnUnSubOddCallback;
-        private RichTextBox richTextBox1;
-        private RichTextBox richTextBox2;
-        private RichTextBox richTextBox3;
+        private RichTextBox rtxtEvent;
+        private RichTextBox rtxtEvenCallback;
+        private RichTextBox rtxtOddCallback;
         private Label label1;
         private Label label2;
         private Label label3;
+        private Button btnTimeToggle;
+        private Panel pnlTimerStatus;
     }
 }

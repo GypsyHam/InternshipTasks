@@ -7,17 +7,46 @@ namespace CallBack_Task
         public Callback_Form()
         {
             InitializeComponent();
+            GetTimerStatusForPanel();
         }
+
+        SimpleMessageProvider simpleMessageProvider = SimpleMessageProvider.Instance;
 
         private void btnSubEvent_Click(object sender, EventArgs e)
         {
-            HandleSimpleMessage(sender, new SimpleEventArgs("Test"));
+            simpleMessageProvider.Subscribe("AllEvents", HandleSimpleMessage);
         }
 
-        private async void HandleSimpleMessage(object sender, SimpleEventArgs e)
+        async Task HandleSimpleMessage(SimpleEventArgs e)
         {
             // Process the simple message asynchronously
-            await Task.Run(() => Console.WriteLine($"Received simple message: {e.Message}"));
+            Console.WriteLine($"Received simple message: {e.Message}");
+            // Update UI element on the UI thread
+            if (rtxtEvent.InvokeRequired)
+            {
+                rtxtEvent.Invoke(new Action(() => rtxtEvent.Text += "\n" + e.Message));
+            }
+            else
+            {
+                rtxtEvent.Text += e.Message + "\n";
+            }
+        }
+
+        private void btnUnSubEvent_Click(object sender, EventArgs e)
+        {
+            simpleMessageProvider.Unsubscribe("AllEvents");
+        }
+
+        
+        private void btnTimerToggle_Click(object sender, EventArgs e)
+        {
+            simpleMessageProvider.TimerToggle();
+            GetTimerStatusForPanel();
+        }
+
+        private void GetTimerStatusForPanel()
+        {
+            pnlTimerStatus.BackColor = simpleMessageProvider.IsTimerRunning ? Color.Green : Color.Red;
         }
 
 
