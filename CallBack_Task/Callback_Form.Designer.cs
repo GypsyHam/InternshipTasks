@@ -1,6 +1,6 @@
 ﻿namespace CallBack_Task
 {
-    partial class Form1
+    partial class Callback_Form
     {
         /// <summary>
         ///  Required designer variable.

@@ -1,8 +1,8 @@
 namespace CallBack_Task
 {
-    public partial class Form1 : Form
+    public partial class Callback_Form : Form
     {
-        public Form1()
+        public Callback_Form()
         {
             InitializeComponent();
         }
