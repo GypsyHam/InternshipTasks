@@ -37,20 +37,24 @@
             richTextBox1 = new RichTextBox();
             richTextBox2 = new RichTextBox();
             richTextBox3 = new RichTextBox();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
             SuspendLayout();
             // 
             // btnSubEvent
             // 
-            btnSubEvent.Location = new Point(66, 49);
+            btnSubEvent.Location = new Point(66, 26);
             btnSubEvent.Name = "btnSubEvent";
             btnSubEvent.Size = new Size(55, 23);
             btnSubEvent.TabIndex = 0;
             btnSubEvent.Text = "Sub";
             btnSubEvent.UseVisualStyleBackColor = true;
+            btnSubEvent.Click += btnSubEvent_Click;
             // 
             // btnUnSubEvent
             // 
-            btnUnSubEvent.Location = new Point(127, 49);
+            btnUnSubEvent.Location = new Point(127, 26);
             btnUnSubEvent.Name = "btnUnSubEvent";
             btnUnSubEvent.Size = new Size(55, 23);
             btnUnSubEvent.TabIndex = 1;
@@ -59,7 +63,7 @@
             // 
             // btnSubEvenCallback
             // 
-            btnSubEvenCallback.Location = new Point(250, 49);
+            btnSubEvenCallback.Location = new Point(250, 26);
             btnSubEvenCallback.Name = "btnSubEvenCallback";
             btnSubEvenCallback.Size = new Size(55, 23);
             btnSubEvenCallback.TabIndex = 2;
@@ -68,7 +72,7 @@
             // 
             // btnUnSubEvenCallback
             // 
-            btnUnSubEvenCallback.Location = new Point(311, 49);
+            btnUnSubEvenCallback.Location = new Point(311, 26);
             btnUnSubEvenCallback.Name = "btnUnSubEvenCallback";
             btnUnSubEvenCallback.Size = new Size(55, 23);
             btnUnSubEvenCallback.TabIndex = 3;
@@ -77,7 +81,7 @@
             // 
             // btnSubOddCallback
             // 
-            btnSubOddCallback.Location = new Point(434, 49);
+            btnSubOddCallback.Location = new Point(434, 26);
             btnSubOddCallback.Name = "btnSubOddCallback";
             btnSubOddCallback.Size = new Size(55, 23);
             btnSubOddCallback.TabIndex = 4;
@@ -86,17 +90,16 @@
             // 
             // btnUnSubOddCallback
             // 
-            btnUnSubOddCallback.Location = new Point(495, 49);
+            btnUnSubOddCallback.Location = new Point(495, 26);
             btnUnSubOddCallback.Name = "btnUnSubOddCallback";
             btnUnSubOddCallback.Size = new Size(55, 23);
             btnUnSubOddCallback.TabIndex = 5;
             btnUnSubOddCallback.Text = "Un-Sub";
             btnUnSubOddCallback.UseVisualStyleBackColor = true;
-            btnUnSubOddCallback.Click += button6_Click;
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(32, 78);
+            richTextBox1.Location = new Point(32, 55);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(150, 360);
             richTextBox1.TabIndex = 6;
@@ -104,7 +107,7 @@
             // 
             // richTextBox2
             // 
-            richTextBox2.Location = new Point(216, 78);
+            richTextBox2.Location = new Point(216, 55);
             richTextBox2.Name = "richTextBox2";
             richTextBox2.Size = new Size(150, 360);
             richTextBox2.TabIndex = 7;
@@ -112,17 +115,47 @@
             // 
             // richTextBox3
             // 
-            richTextBox3.Location = new Point(400, 78);
+            richTextBox3.Location = new Point(400, 55);
             richTextBox3.Name = "richTextBox3";
             richTextBox3.Size = new Size(150, 360);
             richTextBox3.TabIndex = 8;
             richTextBox3.Text = "";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(400, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(30, 15);
+            label1.TabIndex = 9;
+            label1.Text = "Odd";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(32, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(36, 15);
+            label2.TabIndex = 10;
+            label2.Text = "Event";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(216, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(32, 15);
+            label3.TabIndex = 11;
+            label3.Text = "Even";
+            // 
             // Callback_Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(585, 450);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(richTextBox3);
             Controls.Add(richTextBox2);
             Controls.Add(richTextBox1);
@@ -133,8 +166,9 @@
             Controls.Add(btnUnSubEvent);
             Controls.Add(btnSubEvent);
             Name = "Callback_Form";
-            Text = "Form1";
+            Text = "Callback Tester";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -148,5 +182,8 @@
         private RichTextBox richTextBox1;
         private RichTextBox richTextBox2;
         private RichTextBox richTextBox3;
+        private Label label1;
+        private Label label2;
+        private Label label3;
     }
 }
