@@ -96,9 +96,11 @@
             btnSubOddCallback.TabIndex = 4;
             btnSubOddCallback.Text = "Sub";
             btnSubOddCallback.UseVisualStyleBackColor = true;
+            btnSubOddCallback.Click += btnSubOddCallback_Click;
             // 
             // btnUnSubOddCallback
             // 
+            btnUnSubOddCallback.Enabled = false;
             btnUnSubOddCallback.Location = new Point(495, 26);
             btnUnSubOddCallback.Name = "btnUnSubOddCallback";
             btnUnSubOddCallback.Size = new Size(55, 23);
@@ -210,6 +212,7 @@
             // 
             // btnSubAll
             // 
+            btnSubAll.Enabled = false;
             btnSubAll.Location = new Point(32, 423);
             btnSubAll.Name = "btnSubAll";
             btnSubAll.Size = new Size(86, 23);

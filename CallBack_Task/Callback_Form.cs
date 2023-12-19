@@ -85,8 +85,14 @@ namespace CallBack_Task
 
         private void btnSubEvenCallback_Click(object sender, EventArgs e)
         {
-            simpleMessageProvider.Subscribe("AllEvents", HandleEvenMessage);
+            simpleMessageProvider.Subscribe("Even", HandleEvenMessage);
             pnlEvenSub.BackColor = Color.Green;
+        }
+
+        private void btnSubOddCallback_Click(object sender, EventArgs e)
+        {
+            simpleMessageProvider.Subscribe("Odd", HandleOddMessage);
+            pnlOddSub.BackColor = Color.Green;
         }
     }
 }

@@ -65,15 +65,13 @@ namespace Callback_Task
 
             if (currentDateTime.Second % 2 == 0)
             {
-                OnEvenEvent(args);
+                OnEvenEvent(new SimpleEventArgs("Even"));
             }
             else
             {
-                OnOddEvent(args);
+                OnEvenEvent(new SimpleEventArgs("Odd"));
             }
         }
-
-
 
         public void Subscribe(string key, Func<SimpleEventArgs, Task> subscriber)
         {
@@ -96,7 +94,7 @@ namespace Callback_Task
         {
             SimpleMessageEvent?.Invoke(this, e);
 
-            // Notify subscribers
+            // Notify simple subscribers
             foreach (var subscriberList in _simpleSubscribers.Values)
             {
                 foreach (var subscriber in subscriberList)
@@ -105,9 +103,11 @@ namespace Callback_Task
                 }
             }
         }
+
         protected virtual void OnEvenEvent(SimpleEventArgs e)
         {
-            foreach (var subscriber in _simpleSubscribers.GetOrAdd("even", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>>())))
+            // Notify even subscribers
+            foreach (var subscriber in _simpleSubscribers.GetOrAdd("Even", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>()))
             {
                 subscriber.Invoke(e);
             }
@@ -115,7 +115,8 @@ namespace Callback_Task
 
         protected virtual void OnOddEvent(SimpleEventArgs e)
         {
-            foreach (var subscriber in _simpleSubscribers.GetOrAdd("odd", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>>())))
+            // Notify odd subscribers
+            foreach (var subscriber in _simpleSubscribers.GetOrAdd("Odd", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>()))
             {
                 subscriber.Invoke(e);
             }
