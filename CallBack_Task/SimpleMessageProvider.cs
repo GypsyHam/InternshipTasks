@@ -9,7 +9,7 @@ namespace Callback_Task
         public event EventHandler<SimpleEventArgs> SimpleMessageEvent;
         private ConcurrentDictionary<string, ConcurrentHashSet<Func<SimpleEventArgs, Task>>> _simpleSubscribers = new();
         private System.Threading.Timer _timer;
-        private volatile bool _timerRunning = true; // Use volatile for thread safety
+        private volatile bool _timerRunning = true; // Use volatile for thread safety (apparently)
 
 
         private static readonly SimpleMessageProvider instance = new SimpleMessageProvider();

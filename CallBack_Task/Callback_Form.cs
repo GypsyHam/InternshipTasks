@@ -100,6 +100,7 @@ namespace CallBack_Task
         private void btnUnSubEvent_Click(object sender, EventArgs e)
         {
             simpleMessageProvider.SimpleMessageEvent -= HandleSimpleMessage;
+            pnlEventSub.BackColor = Color.Red;
         }
 
         private void btnSubEvenCallback_Click(object sender, EventArgs e)
@@ -116,12 +117,15 @@ namespace CallBack_Task
         private void btnUnSubEvenCallback_Click(object sender, EventArgs e)
         {
             simpleMessageProvider.Unsubscribe("Even");
+            pnlEvenSub.BackColor = Color.Red;
+
         }
 
         private void btnUnSubOddCallback_Click(object sender, EventArgs e)
         {
 
             simpleMessageProvider.Unsubscribe("Odd");
+            pnlOddSub.BackColor = Color.Red;
         }
     }
 }
