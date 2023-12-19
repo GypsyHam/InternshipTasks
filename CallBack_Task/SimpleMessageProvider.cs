@@ -63,14 +63,11 @@ namespace Callback_Task
 
             OnSimpleMessageEvent(args);
 
-            if (currentDateTime.Second % 2 == 0)
-            {
-                OnEvenEvent(new SimpleEventArgs("Even"));
-            }
-            else
-            {
-                OnEvenEvent(new SimpleEventArgs("Odd"));
-            }
+            string evenOdd = (currentDateTime.Second % 2 == 0) ? "Even" : "Odd";
+            bool isEven = (currentDateTime.Second % 2 == 0);
+            string message = currentDateTime.ToString("mm:HH") + " " + evenOdd;
+
+            OnKeyEvent(evenOdd);
         }
 
         public void Subscribe(string key, Func<SimpleEventArgs, Task> subscriber)
@@ -95,30 +92,24 @@ namespace Callback_Task
             SimpleMessageEvent?.Invoke(this, e);
 
             // Notify simple subscribers
-            foreach (var subscriberList in _simpleSubscribers.Values)
+            //foreach (var subscriberList in _simpleSubscribers.Values)
+            //{
+            //    foreach (var subscriber in subscriberList)
+            //    {
+            //        _ = subscriber.Invoke(e);
+            //    }
+            //}
+        }
+
+        protected virtual void OnKeyEvent(string key)
+        {
+            SimpleEventArgs e = new SimpleEventArgs(key);
+            if (_simpleSubscribers.TryGetValue(key, out var subscribers))
             {
-                foreach (var subscriber in subscriberList)
+                foreach (var subscriber in subscribers)
                 {
-                    _ = subscriber.Invoke(e);
+                    subscriber.Invoke(e);
                 }
-            }
-        }
-
-        protected virtual void OnEvenEvent(SimpleEventArgs e)
-        {
-            // Notify even subscribers
-            foreach (var subscriber in _simpleSubscribers.GetOrAdd("Even", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>()))
-            {
-                subscriber.Invoke(e);
-            }
-        }
-
-        protected virtual void OnOddEvent(SimpleEventArgs e)
-        {
-            // Notify odd subscribers
-            foreach (var subscriber in _simpleSubscribers.GetOrAdd("Odd", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>()))
-            {
-                subscriber.Invoke(e);
             }
         }
 

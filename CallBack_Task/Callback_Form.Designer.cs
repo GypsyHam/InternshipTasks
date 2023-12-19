@@ -87,6 +87,7 @@
             btnUnSubEvenCallback.TabIndex = 3;
             btnUnSubEvenCallback.Text = "Un-Sub";
             btnUnSubEvenCallback.UseVisualStyleBackColor = true;
+            btnUnSubEvenCallback.Click += btnUnSubEvenCallback_Click;
             // 
             // btnSubOddCallback
             // 
@@ -100,13 +101,13 @@
             // 
             // btnUnSubOddCallback
             // 
-            btnUnSubOddCallback.Enabled = false;
             btnUnSubOddCallback.Location = new Point(495, 26);
             btnUnSubOddCallback.Name = "btnUnSubOddCallback";
             btnUnSubOddCallback.Size = new Size(55, 23);
             btnUnSubOddCallback.TabIndex = 5;
             btnUnSubOddCallback.Text = "Un-Sub";
             btnUnSubOddCallback.UseVisualStyleBackColor = true;
+            btnUnSubOddCallback.Click += btnUnSubOddCallback_Click;
             // 
             // rtxtEvent
             // 
@@ -161,7 +162,7 @@
             // 
             // btnTimerToggle
             // 
-            btnTimerToggle.Location = new Point(32, 452);
+            btnTimerToggle.Location = new Point(464, 446);
             btnTimerToggle.Name = "btnTimerToggle";
             btnTimerToggle.Size = new Size(86, 23);
             btnTimerToggle.TabIndex = 12;
