@@ -77,6 +77,7 @@
             btnSubEvenCallback.TabIndex = 2;
             btnSubEvenCallback.Text = "Sub";
             btnSubEvenCallback.UseVisualStyleBackColor = true;
+            btnSubEvenCallback.Click += btnSubEvenCallback_Click;
             // 
             // btnUnSubEvenCallback
             // 

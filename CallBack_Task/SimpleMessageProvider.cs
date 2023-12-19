@@ -58,8 +58,21 @@ namespace Callback_Task
         private void TimerCallback(object state)
         {
             // This is a placeholder; implement your logic to send messages to subscribers
-            OnSimpleMessageEvent(new SimpleEventArgs("YourMessage"));
+            DateTime currentDateTime = DateTime.Now;
+            SimpleEventArgs args = new SimpleEventArgs(currentDateTime.ToString());
+
+            OnSimpleMessageEvent(args);
+
+            if (currentDateTime.Second % 2 == 0)
+            {
+                OnEvenEvent(args);
+            }
+            else
+            {
+                OnOddEvent(args);
+            }
         }
+
 
 
         public void Subscribe(string key, Func<SimpleEventArgs, Task> subscriber)
@@ -90,6 +103,21 @@ namespace Callback_Task
                 {
                     _ = subscriber.Invoke(e);
                 }
+            }
+        }
+        protected virtual void OnEvenEvent(SimpleEventArgs e)
+        {
+            foreach (var subscriber in _simpleSubscribers.GetOrAdd("even", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>>())))
+            {
+                subscriber.Invoke(e);
+            }
+        }
+
+        protected virtual void OnOddEvent(SimpleEventArgs e)
+        {
+            foreach (var subscriber in _simpleSubscribers.GetOrAdd("odd", _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>>())))
+            {
+                subscriber.Invoke(e);
             }
         }
 
