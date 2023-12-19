@@ -46,7 +46,6 @@
             pnlEvenSub = new Panel();
             pnlOddSub = new Panel();
             label4 = new Label();
-            btnSubAll = new Button();
             SuspendLayout();
             // 
             // btnSubEvent
@@ -211,22 +210,11 @@
             label4.TabIndex = 17;
             label4.Text = "Timer Running";
             // 
-            // btnSubAll
-            // 
-            btnSubAll.Enabled = false;
-            btnSubAll.Location = new Point(32, 423);
-            btnSubAll.Name = "btnSubAll";
-            btnSubAll.Size = new Size(86, 23);
-            btnSubAll.TabIndex = 19;
-            btnSubAll.Text = "Toggle Subs";
-            btnSubAll.UseVisualStyleBackColor = true;
-            // 
             // Callback_Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(600, 481);
-            Controls.Add(btnSubAll);
             Controls.Add(label4);
             Controls.Add(pnlOddSub);
             Controls.Add(pnlEvenSub);
@@ -271,6 +259,5 @@
         private Panel pnlEvenSub;
         private Panel pnlOddSub;
         private Label label4;
-        private Button btnSubAll;
     }
 }

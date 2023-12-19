@@ -1,4 +1,5 @@
 using Callback_Task;
+using log4net.Config;
 
 namespace CallBack_Task
 {
@@ -10,14 +11,39 @@ namespace CallBack_Task
             UpdateUIByTimerStatus();
         }
 
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         SimpleMessageProvider simpleMessageProvider = SimpleMessageProvider.Instance;
 
+
+        private void HandleSimpleMessage(object? sender, SimpleEventArgs e)
+        {
+            try
+            {
+                // Process the simple message asynchronously
+                log.Info($"Received simple message: {e.Message}");
+                // Update UI element on the UI thread
+                if (rtxtEvent.InvokeRequired)
+                {
+                    rtxtEvent.Invoke(new Action(() => rtxtEvent.Text += "\n" + e.Message));
+                }
+                else
+                {
+                    rtxtEvent.Text += e.Message + "\n";
+                }
+                pnlEventSub.BackColor = Color.Green;
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+        }
         async Task HandleEvenMessage(SimpleEventArgs e)
         {
             try
             {
                 // Process the even message asynchronously
-                Console.WriteLine($"Received even message: {e.Message}");
+                log.Info($"Received even message: {e.Message}");
                 // Update UI element on the UI thread
                 if (rtxtEvenCallback.InvokeRequired)
                 {
@@ -27,6 +53,7 @@ namespace CallBack_Task
                 {
                     rtxtEvenCallback.Text += e.Message + "\n";
                 }
+                pnlEvenSub.BackColor = Color.Green;
             }
             catch (Exception ex)
             {
@@ -37,7 +64,7 @@ namespace CallBack_Task
         async Task HandleOddMessage(SimpleEventArgs e)
         {
             // Process the odd message asynchronously
-            Console.WriteLine($"Received odd message: {e.Message}");
+            log.Info($"Received odd message: {e.Message}");
             // Update UI element on the UI thread
             if (rtxtOddCallback.InvokeRequired)
             {
@@ -47,28 +74,7 @@ namespace CallBack_Task
             {
                 rtxtOddCallback.Text += e.Message + "\n";
             }
-        }
-
-        private void HandleSimpleMessage(object? sender, SimpleEventArgs e)
-        {
-            try
-            {
-                // Process the simple message asynchronously
-                Console.WriteLine($"Received simple message: {e.Message}");
-                // Update UI element on the UI thread
-                if (rtxtEvent.InvokeRequired)
-                {
-                    rtxtEvent.Invoke(new Action(() => rtxtEvent.Text += "\n" + e.Message));
-                }
-                else
-                {
-                    rtxtEvent.Text += e.Message + "\n";
-                }
-            }
-            catch (Exception)
-            {
-                //throw;
-            }
+            pnlOddSub.BackColor = Color.Green;
         }
 
         private void UpdateUIByTimerStatus()
@@ -77,48 +83,42 @@ namespace CallBack_Task
             btnTimerToggle.Text = simpleMessageProvider.IsTimerRunning ? "Stop Timer" : "Start Timer";
         }
 
-        private void btnSubEvent_Click(object sender, EventArgs e)
-        {
-            simpleMessageProvider.SimpleMessageEvent += HandleSimpleMessage;
-            pnlEventSub.BackColor = Color.Green;
-        }
-
-        private void btnUnSubEvent_Click(object sender, EventArgs e)
-        {
-            simpleMessageProvider.Unsubscribe("Simple Event");
-            pnlEventSub.BackColor = Color.Red;
-        }
 
         private void btnTimerToggle_Click(object sender, EventArgs e)
         {
             simpleMessageProvider.TimerToggle();
             UpdateUIByTimerStatus();
         }
+        private void btnSubEvent_Click(object sender, EventArgs e)
+        {
+            simpleMessageProvider.SimpleMessageEvent += HandleSimpleMessage;
+        }
+
+        private void btnUnSubEvent_Click(object sender, EventArgs e)
+        {
+            simpleMessageProvider.SimpleMessageEvent -= HandleSimpleMessage;
+        }
 
         private void btnSubEvenCallback_Click(object sender, EventArgs e)
         {
             simpleMessageProvider.Subscribe("Even", HandleEvenMessage);
-            pnlEvenSub.BackColor = Color.Green;
         }
 
         private void btnSubOddCallback_Click(object sender, EventArgs e)
         {
             simpleMessageProvider.Subscribe("Odd", HandleOddMessage);
-            pnlOddSub.BackColor = Color.Green;
+            
         }
 
         private void btnUnSubEvenCallback_Click(object sender, EventArgs e)
         {
-
             simpleMessageProvider.Unsubscribe("Even");
-            pnlEventSub.BackColor = Color.Red;
         }
 
         private void btnUnSubOddCallback_Click(object sender, EventArgs e)
         {
 
             simpleMessageProvider.Unsubscribe("Odd");
-            pnlEventSub.BackColor = Color.Red;
         }
     }
 }

@@ -18,3 +18,5 @@ C:\Git\Sandwich\InternshipTasks\CallBack_Task\obj\Debug\net6.0-windows\refint\Ca
 C:\Git\Sandwich\InternshipTasks\CallBack_Task\obj\Debug\net6.0-windows\Callback_Task.pdb
 C:\Git\Sandwich\InternshipTasks\CallBack_Task\obj\Debug\net6.0-windows\Callback_Task.genruntimeconfig.cache
 C:\Git\Sandwich\InternshipTasks\CallBack_Task\obj\Debug\net6.0-windows\ref\Callback_Task.dll
+C:\Git\Sandwich\InternshipTasks\CallBack_Task\bin\Debug\net6.0-windows\log4net.dll
+C:\Git\Sandwich\InternshipTasks\CallBack_Task\bin\Debug\net6.0-windows\log4net.config

@@ -43,6 +43,10 @@
             "ConcurrentHashSet": {
               "target": "Package",
               "version": "[1.3.0, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.15, )"
             }
           },
           "imports": [

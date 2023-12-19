@@ -1,10 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "l4c47A8ZuqDy5t7+i1qlgu5CPwC5UJdZkpivfnz6px1xZtWkTR08DN/Ox65inUJujMpfHwsGPaLs6cc0ap6aQA==",
+  "dgSpecHash": "kK1KENycU/vtOn/BqtDWAi1Py8/t+qACcNYHZCAIbstzg++cgfxinBuI1qhmEoyfm5mgZlcuiQEYk4twi3T/9w==",
   "success": true,
   "projectFilePath": "C:\\Git\\Sandwich\\InternshipTasks\\CallBack_Task\\Callback_Task.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\concurrenthashset\\1.3.0\\concurrenthashset.1.3.0.nupkg.sha512"
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\concurrenthashset\\1.3.0\\concurrenthashset.1.3.0.nupkg.sha512",
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\log4net\\2.0.15\\log4net.2.0.15.nupkg.sha512",
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\system.configuration.configurationmanager\\4.5.0\\system.configuration.configurationmanager.4.5.0.nupkg.sha512",
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\system.security.accesscontrol\\4.5.0\\system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.5.0\\system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\system.security.permissions\\4.5.0\\system.security.permissions.4.5.0.nupkg.sha512",
+    "C:\\Users\\brand_be5oyw3\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }

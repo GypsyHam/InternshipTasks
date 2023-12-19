@@ -11,6 +11,7 @@ namespace Callback_Task
         private System.Threading.Timer _timer;
         private volatile bool _timerRunning = true; // Use volatile for thread safety
 
+
         private static readonly SimpleMessageProvider instance = new SimpleMessageProvider();
         static SimpleMessageProvider() { }
         public static SimpleMessageProvider Instance { get {  return instance; } }
@@ -27,89 +28,148 @@ namespace Callback_Task
 
         public void TimerToggle()
         {
-            if (!_timerRunning)
+            try
             {
-                StartTimer();
+                if (!_timerRunning)
+                {
+                    StartTimer();
+                }
+                else
+                {
+                    StopTimer();
+                }
             }
-            else
+            catch (Exception)
             {
-                StopTimer();
+
+                //throw;
             }
         }
 
         private void SetupTimer()
         {
-            // Set up your timer logic here
-            _timer = new System.Threading.Timer(TimerCallback, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            try
+            {
+                _timer = new System.Threading.Timer(TimerCallback, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
 
         public void StartTimer()
         {
-            _timerRunning = true;
-            SetupTimer();
+            try
+            {
+                _timerRunning = true;
+                SetupTimer();
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
 
         public void StopTimer()
         {
-            _timerRunning = false;
-            _timer?.Change(Timeout.Infinite, Timeout.Infinite); // Stop the timer
+            try
+            {
+                _timerRunning = false;
+                _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
 
         private void TimerCallback(object state)
         {
-            // This is a placeholder; implement your logic to send messages to subscribers
-            DateTime currentDateTime = DateTime.Now;
-            SimpleEventArgs args = new SimpleEventArgs(currentDateTime.ToString());
+            try
+            {
+                DateTime currentDateTime = DateTime.Now;
+                SimpleEventArgs args = new SimpleEventArgs(currentDateTime.ToString());
 
-            OnSimpleMessageEvent(args);
+                OnSimpleMessageEvent(args);
 
-            string evenOdd = (currentDateTime.Second % 2 == 0) ? "Even" : "Odd";
-            bool isEven = (currentDateTime.Second % 2 == 0);
-            string message = currentDateTime.ToString("mm:HH") + " " + evenOdd;
+                string evenOdd = (currentDateTime.Second % 2 == 0) ? "Even" : "Odd";
 
-            OnKeyEvent(evenOdd);
+                OnKeyEvent(evenOdd);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
 
         public void Subscribe(string key, Func<SimpleEventArgs, Task> subscriber)
         {
-            _simpleSubscribers.AddOrUpdate(
-                key,
-                _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>> { subscriber }),
-                (_, set) =>
-                {
-                    set.Add(subscriber);
-                    return set;
-                });
+            try
+            {
+                _simpleSubscribers.AddOrUpdate(
+                        key,
+                        _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>> { subscriber }),
+                        (_, set) =>
+                        {
+                            set.Add(subscriber);
+                            return set;
+                        });
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
 
         public void Unsubscribe(string key)
         {
-            _simpleSubscribers.TryRemove(key, out _);
+            try
+            {
+                _simpleSubscribers.TryRemove(key, out _);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
 
         protected virtual void OnSimpleMessageEvent(SimpleEventArgs e)
         {
-            SimpleMessageEvent?.Invoke(this, e);
+            try
+            {
+                SimpleMessageEvent?.Invoke(this, e);
+            }
+            catch (Exception)
+            {
 
-            // Notify simple subscribers
-            //foreach (var subscriberList in _simpleSubscribers.Values)
-            //{
-            //    foreach (var subscriber in subscriberList)
-            //    {
-            //        _ = subscriber.Invoke(e);
-            //    }
-            //}
+                //throw;
+            }
         }
 
         protected virtual void OnKeyEvent(string key)
         {
-            SimpleEventArgs e = new SimpleEventArgs(key);
-            if (_simpleSubscribers.TryGetValue(key, out var subscribers))
+            try
             {
-                foreach (var subscriber in subscribers)
+                SimpleEventArgs e = new SimpleEventArgs(key);
+                if (_simpleSubscribers.TryGetValue(key, out var subscribers))
                 {
-                    subscriber.Invoke(e);
+                    foreach (var subscriber in subscribers)
+                    {
+                        subscriber.Invoke(e);
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
+                //throw;
             }
         }
 
