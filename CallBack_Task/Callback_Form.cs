@@ -20,16 +20,17 @@ namespace CallBack_Task
         {
             try
             {
+                string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
                 // Process the simple message asynchronously
                 log.Info($"Received simple message: {e.Message}");
                 // Update UI element on the UI thread
                 if (rtxtEvent.InvokeRequired)
                 {
-                    rtxtEvent.Invoke(new Action(() => rtxtEvent.Text += "\n" + e.Message));
+                    rtxtEvent.Invoke(new Action(() => rtxtEvent.Text += "\n" + message));
                 }
                 else
                 {
-                    rtxtEvent.Text += e.Message + "\n";
+                    rtxtEvent.Text += message + "\n";
                 }
                 pnlEventSub.BackColor = Color.Green;
             }
@@ -42,16 +43,17 @@ namespace CallBack_Task
         {
             try
             {
+                string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
                 // Process the even message asynchronously
                 log.Info($"Received even message: {e.Message}");
                 // Update UI element on the UI thread
                 if (rtxtEvenCallback.InvokeRequired)
                 {
-                    rtxtEvenCallback.Invoke(new Action(() => rtxtEvenCallback.Text += "\n" + e.Message));
+                    rtxtEvenCallback.Invoke(new Action(() => rtxtEvenCallback.Text += "\n" + message));
                 }
                 else
                 {
-                    rtxtEvenCallback.Text += e.Message + "\n";
+                    rtxtEvenCallback.Text += message + "\n";
                 }
                 pnlEvenSub.BackColor = Color.Green;
             }
@@ -63,12 +65,13 @@ namespace CallBack_Task
 
         async Task HandleOddMessage(SimpleEventArgs e)
         {
+            string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
             // Process the odd message asynchronously
             log.Info($"Received odd message: {e.Message}");
             // Update UI element on the UI thread
             if (rtxtOddCallback.InvokeRequired)
             {
-                rtxtOddCallback.Invoke(new Action(() => rtxtOddCallback.Text += "\n" + e.Message));
+                rtxtOddCallback.Invoke(new Action(() => rtxtOddCallback.Text += "\n" + message));
             }
             else
             {

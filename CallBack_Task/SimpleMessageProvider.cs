@@ -92,7 +92,7 @@ namespace Callback_Task
             try
             {
                 DateTime currentDateTime = DateTime.Now;
-                SimpleEventArgs args = new SimpleEventArgs(currentDateTime.ToString());
+                SimpleEventArgs args = new SimpleEventArgs("Simple");
 
                 OnSimpleMessageEvent(args);
 
@@ -148,7 +148,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }
@@ -168,7 +167,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }
