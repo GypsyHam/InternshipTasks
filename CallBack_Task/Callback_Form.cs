@@ -26,7 +26,7 @@ namespace CallBack_Task
             {
                 string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
                 // Process the simple message asynchronously
-                customCallbackLogger.Log(typeof(Callback_Form), Level.Info, $"CUSTOM LOGGER Received simple message: {e.Message}", null);
+                customCallbackLogger.Log(typeof(Callback_Form), Level.Info, $"Received Simple message: {e.Message}", null);
                 // Update UI element on the UI thread
                 if (rtxtEvent.InvokeRequired)
                 {
@@ -49,7 +49,7 @@ namespace CallBack_Task
             {
                 string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
                 // Process the even message asynchronously
-                log.Info($"Received even message: {e.Message}");
+                customCallbackLogger.Log(typeof(Callback_Form), Level.Info, $"Received Even message: {e.Message}", null);
                 // Update UI element on the UI thread
                 if (rtxtEvenCallback.InvokeRequired)
                 {
@@ -71,7 +71,7 @@ namespace CallBack_Task
         {
             string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
             // Process the odd message asynchronously
-            log.Info($"Received odd message: {e.Message}");
+            customCallbackLogger.Log(typeof(Callback_Form), Level.Info, $"Received Odd message: {e.Message}", null);
             // Update UI element on the UI thread
             if (rtxtOddCallback.InvokeRequired)
             {

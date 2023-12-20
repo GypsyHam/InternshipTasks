@@ -226,3 +226,30 @@
 2023-12-20 08:28:34,946 INFO - CUSTOM LOGGER Received simple message: Simple
 2023-12-20 08:28:35,954 INFO - CUSTOM LOGGER Received simple message: Simple
 2023-12-20 08:28:36,949 INFO - CUSTOM LOGGER Received simple message: Simple
+2023-12-20 08:33:55,828 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:33:56,819 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:33:57,827 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:33:58,816 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:33:59,816 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:34:00,819 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:34:01,821 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:34:02,820 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:34:03,815 INFO - CUSTOM: Received Simple message: Simple
+2023-12-20 08:34:39,393 INFO - Received Simple message: Simple
+2023-12-20 08:34:40,392 INFO - Received Simple message: Simple
+2023-12-20 08:34:41,390 INFO - Received Simple message: Simple
+2023-12-20 08:34:42,388 INFO - Received Simple message: Simple
+2023-12-20 08:34:43,397 INFO - Received Simple message: Simple
+2023-12-20 11:08:55,594 INFO - Received Simple message: Simple
+2023-12-20 11:08:55,594 INFO - Received Simple message: Simple
+2023-12-20 11:08:49,831 INFO - Received Simple message: Simple
+2023-12-20 11:08:55,602 INFO - Received Simple message: Simple
+2023-12-20 11:08:55,594 INFO - Received Simple message: Simple
+2023-12-20 11:08:50,892 INFO - Received Simple message: Simple
+2023-12-20 11:08:46,528 INFO - Received Simple message: Simple
+2023-12-20 11:08:46,530 INFO - Received Simple message: Simple
+2023-12-20 11:08:56,608 INFO - Received Simple message: Simple
+2023-12-20 11:08:57,604 INFO - Received Simple message: Simple
+2023-12-20 11:08:58,606 INFO - Received Simple message: Simple
+2023-12-20 11:08:59,610 INFO - Received Simple message: Simple
+2023-12-20 11:09:00,596 INFO - Received Simple message: Simple

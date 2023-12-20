@@ -23,20 +23,33 @@ namespace Callback_Task
 
         public void Log(LoggingEvent logEvent)
         {
-            _log.Logger.Log(logEvent);
+            try
+            {
+                _log.Logger.Log(logEvent);
+            }catch (Exception)
+            {
+
+            }
         }
 
         public void Log(Type callerStackBoundaryDeclaringType, Level level, object message, Exception exception)
         {
-            if (IsEnabledFor(level))
+            try
             {
-                _log.Logger.Log(callerStackBoundaryDeclaringType, level, message, exception);
+                if (IsEnabledFor(level))
+                {
+                    _log.Logger.Log(callerStackBoundaryDeclaringType, level, message.ToString(), exception);
+                }
+            }catch (Exception)
+            {
+                
             }
         }
 
         public bool IsEnabledFor(Level level)
         {
-            return true;
+            bool isItThough = _log.Logger.IsEnabledFor(level);
+            return isItThough;
         }
     }
 }
