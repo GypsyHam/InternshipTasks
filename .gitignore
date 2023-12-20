@@ -61,3 +61,12 @@ ehthumbs.db
 
 # Ignore custom files and directories
 custom/
+/CallBack_Task/bin/Debug/net6.0-windows/CallBack_Task.dll
+/CallBack_Task/bin/Debug/net6.0-windows/CallBack_Task.exe
+/CallBack_Task/bin/Debug/net6.0-windows/CallBack_Task.pdb
+/CallBack_Task/obj/Debug/net6.0-windows/ref/CallBack_Task.dll
+/CallBack_Task/obj/Debug/net6.0-windows/refint/CallBack_Task.dll
+/CallBack_Task/obj/Debug/net6.0-windows/apphost.exe
+/CallBack_Task/obj/Debug/net6.0-windows/CallBack_Task.pdb
+/CallBack_Task/obj/Debug/net6.0-windows/CallBack_Task.dll
+/CallBack_Task/obj/Debug/net6.0-windows/CallBack_Task.sourcelink.json
