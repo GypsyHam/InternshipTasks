@@ -1,5 +1,7 @@
 using Callback_Task;
 using log4net.Config;
+using log4net.Core;
+using System.Runtime.CompilerServices;
 
 namespace CallBack_Task
 {
@@ -9,12 +11,14 @@ namespace CallBack_Task
         {
             InitializeComponent();
             UpdateUIByTimerStatus();
+            customCallbackLogger = new CustomCallbackLogger("Callback_Form");
         }
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        SimpleMessageProvider simpleMessageProvider = SimpleMessageProvider.Instance;
+        CustomCallbackLogger customCallbackLogger;
 
+        SimpleMessageProvider simpleMessageProvider = SimpleMessageProvider.Instance;
 
         private void HandleSimpleMessage(object? sender, SimpleEventArgs e)
         {
@@ -22,7 +26,7 @@ namespace CallBack_Task
             {
                 string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
                 // Process the simple message asynchronously
-                log.Info($"Received simple message: {e.Message}");
+                customCallbackLogger.Log(typeof(Callback_Form), Level.Info, $"CUSTOM LOGGER Received simple message: {e.Message}", null);
                 // Update UI element on the UI thread
                 if (rtxtEvent.InvokeRequired)
                 {

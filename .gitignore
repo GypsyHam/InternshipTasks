@@ -5,3 +5,59 @@
 /.vs
 /CallBack_Task/obj/Debug/net6.0-windows/CallBack_Task.AssemblyInfo.cs
 /CallBack_Task/obj/Debug/net6.0-windows/CallBack_Task.AssemblyInfoInputs.cache
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore Visual Studio 2019 project folder
+/bin/
+/obj/
+*.suo
+*.user
+*.sln.docstates
+
+# Ignore JetBrains Rider
+.idea/
+
+# Ignore NuGet Packages
+*.nuget/
+*.nupkg
+*.paket/paket.exe
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore logs and databases
+*.log
+*.sqlite
+*.sqlite3
+
+# Ignore compiled binaries and executables
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+*.pyo
+
+# Ignore macOS
+.DS_Store
+
+# Ignore Windows
+Thumbs.db
+ehthumbs.db
+
+# Ignore Visual Studio Code Workspace settings
+.code-workspace
+
+# Ignore user-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+
+# Ignore custom files and directories
+custom/
