@@ -62,7 +62,7 @@
             txtRawExpression.Name = "txtRawExpression";
             txtRawExpression.Size = new Size(459, 23);
             txtRawExpression.TabIndex = 2;
-            txtRawExpression.Text = "(2 + (1 + 5)) * 7 - 6 = (2 + (1 + 5)) * 7 - 6 = (2 + (1 + 5)) * 7 - 6";
+            txtRawExpression.Text = "56-6";
             // 
             // lblExpressionHeader
             // 

@@ -1,13 +1,13 @@
-﻿using Task3.Model;
+﻿using Task3.View;
 
 
 namespace Task3.Controller
 {
     public static class Calculations
     {
-        public static ExpressionModel CalculateExpression(string expression)
+        public static Expression CalculateExpression(string expression)
         {
-            ExpressionModel expressionModel = Parsers.GetExpressionModelFromString(expression);
+            Expression expressionModel = Parsers.GetExpressionModelFromString(expression);
              
             switch (expressionModel.Symbol)
             {

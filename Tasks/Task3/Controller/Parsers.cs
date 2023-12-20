@@ -1,23 +1,16 @@
-﻿using Task3.Model;
+﻿using Task3.View;
 
 namespace Task3.Controller
 {
     public static class Parsers
     {
-
-        class Symbol {
-            internal char SymbolChar { get; set; }
-            internal int Priority { get; set; }
-         }
-
         static Symbol[] Symbols = new Symbol[]{
             new Symbol { SymbolChar = '*', Priority = 1},
             new Symbol { SymbolChar = '/', Priority = 1},
+            new Symbol { SymbolChar = '-', Priority = 2},
             new Symbol { SymbolChar = '+', Priority = 2},
-            new Symbol { SymbolChar = '-', Priority = 2},         
         };
 
-        static string brackets = "()";
         
         public static bool IsExpressionValid(List<string> expressions)
         {    
@@ -85,7 +78,7 @@ namespace Task3.Controller
 
             bool finalExpression = false;
             string nextExpression = expression;
-            ExpressionModel currentExpression = new ExpressionModel();
+            Expression currentExpression = new Expression();
             
             while (!finalExpression)
             {
@@ -112,59 +105,50 @@ namespace Task3.Controller
             foreach(Symbol symbol in Symbols)
             {
                 currentSymbolIndex = expression.IndexOf(symbol.SymbolChar);
+                if (currentSymbolIndex < 0) continue;
+           
+                firstSymbolIndex = firstSymbolIndex == -1? currentSymbolIndex: firstSymbolIndex;
+                string remaining = string.Empty;
 
-                if(firstSymbolIndex == -1 && currentSymbolIndex != -1)
+                do
                 {
-                    firstSymbolIndex = currentSymbolIndex;
-                    string remaining = expression.Substring(firstSymbolIndex + 1);
-
+                    remaining = expression.Substring(currentSymbolIndex + 1);
                     if (remaining.Contains(symbol.SymbolChar))
                     {
                         //make sure negative / positive signs aren't replaced accidentally;
-                        int remainingIndex = expression.Remove(firstSymbolIndex, 1).IndexOf(symbol.SymbolChar) + 1;
+                        int remainingIndex = expression.Remove(currentSymbolIndex, 1).IndexOf(symbol.SymbolChar) + 1;
                         if (remainingIndex < subStringEndIndex && (expression[firstSymbolIndex + 1] != symbol.SymbolChar))
                         {
                             subStringEndIndex = remainingIndex;
                         }
                         previousSymbolPriority = symbol.Priority;
-                        continue;
+                        currentSymbolIndex = remainingIndex;
+                        //continue;
                     }
                 }
+                while (remaining.Contains(symbol.SymbolChar));               
 
                 if(firstSymbolIndex == -1 || currentSymbolIndex == -1)
                 {
-                    previousSymbolPriority = symbol.Priority;
                     continue;
                 }
 
-                // get first symbol after currently found symbol; make sure negative / positive signs aren't replaced accidentally;
-                if (currentSymbolIndex > firstSymbolIndex && currentSymbolIndex < subStringEndIndex && !(Symbols.Select(x => x.SymbolChar).Contains(expression[currentSymbolIndex-1])))
-                {
-                    subStringEndIndex = currentSymbolIndex;
-                }else if (symbol.Priority == previousSymbolPriority)
-                {
-                    subStringEndIndex = firstSymbolIndex;
-                    subStringStartIndex = 0;
-                    previousSymbolPriority = symbol.Priority;
-                    continue;
-                }
+                subStringStartIndex = ParserTools.GetStringStart(currentSymbolIndex, firstSymbolIndex, subStringStartIndex, previousSymbolPriority, symbol.Priority);
 
-                // get first symbol before currently found symbol
-                if (currentSymbolIndex < firstSymbolIndex && currentSymbolIndex > subStringStartIndex)
-                {
-                    subStringStartIndex = currentSymbolIndex + 1;
-                }
+                subStringEndIndex = ParserTools.GetStringEnd(currentSymbolIndex, firstSymbolIndex, subStringEndIndex, symbol, Symbols, expression, previousSymbolPriority);
+
                 previousSymbolPriority = symbol.Priority;
             }
 
+            
             string returnString = expression.Substring(subStringStartIndex, subStringEndIndex - subStringStartIndex);
 
             return returnString;
-        }
+        }       
 
-        public static ExpressionModel GetResults(string expression)
+    public static Expression GetResults(string expression)
         {
-            ExpressionModel result = new ExpressionModel();
+            Expression result = new Expression();
 
             expression = expression.Replace(" ", "");
 
@@ -201,10 +185,9 @@ namespace Task3.Controller
             return expression;            
         }
 
-
-        public static ExpressionModel GetExpressionModelFromString(string expression)
+        public static Expression GetExpressionModelFromString(string expression)
         {
-            ExpressionModel expressionModel = new ExpressionModel();
+            Expression expressionModel = new Expression();
             expression = expression.Replace(" ", "");
 
             char symbol = GetSymbol(expression);

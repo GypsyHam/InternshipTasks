@@ -1,6 +1,6 @@
-﻿namespace Task3.Model
+﻿namespace Task3.View
 {
-    public class ExpressionModel
+    public class Expression
     {
         public float LeftHandSide { get; set; }
         public float RightHandSide { get; set; }
