@@ -1,6 +1,5 @@
 ﻿using ConcurrentCollections;
 using System.Collections.Concurrent;
-using System.ComponentModel;
 
 namespace Callback_Task
 {
@@ -13,7 +12,6 @@ namespace Callback_Task
 
 
         private static readonly SimpleMessageProvider instance = new SimpleMessageProvider();
-        static SimpleMessageProvider() { }
         public static SimpleMessageProvider Instance { get {  return instance; } }
 
         public SimpleMessageProvider()
@@ -54,7 +52,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }
@@ -68,7 +65,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }
@@ -82,7 +78,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }
@@ -102,7 +97,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }
@@ -122,7 +116,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }
@@ -135,7 +128,6 @@ namespace Callback_Task
             }
             catch (Exception)
             {
-
                 //throw;
             }
         }

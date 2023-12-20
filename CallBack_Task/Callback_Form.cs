@@ -1,7 +1,5 @@
 using Callback_Task;
-using log4net.Config;
 using log4net.Core;
-using System.Runtime.CompilerServices;
 
 namespace CallBack_Task
 {
@@ -13,8 +11,6 @@ namespace CallBack_Task
             UpdateUIByTimerStatus();
             customCallbackLogger = new CustomCallbackLogger("Callback_Form");
         }
-
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         CustomCallbackLogger customCallbackLogger;
 

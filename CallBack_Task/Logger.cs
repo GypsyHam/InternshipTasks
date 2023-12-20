@@ -1,11 +1,6 @@
 ﻿using log4net;
 using log4net.Core;
 using log4net.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Callback_Task
 {
@@ -13,7 +8,7 @@ namespace Callback_Task
     {
         private readonly ILog _log;
         public string Name { get; }
-
+        
         public CustomCallbackLogger(string categoryName)
         {
             _log = LogManager.GetLogger(categoryName);
@@ -48,8 +43,16 @@ namespace Callback_Task
 
         public bool IsEnabledFor(Level level)
         {
-            bool isItThough = _log.Logger.IsEnabledFor(level);
-            return isItThough;
+            try
+            {
+                bool isItThough = _log.Logger.IsEnabledFor(level);
+                return isItThough;
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+            return false;
         }
     }
 }
