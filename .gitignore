@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/ExceptionsExperiment/bin/Debug/net6.0-windows/ExceptionsExperiment.exe
+/ExceptionsExperiment/obj/Debug/net6.0-windows/ref/ExceptionsExperiment.dll
+/ExceptionsExperiment/obj/Debug/net6.0-windows/refint/ExceptionsExperiment.dll
+/ExceptionsExperiment/obj/Debug/net6.0-windows
+/ExceptionsExperiment/bin/Debug/net6.0-windows
