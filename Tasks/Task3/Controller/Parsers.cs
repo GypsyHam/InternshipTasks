@@ -78,72 +78,98 @@ namespace Task3.Controller
 
             bool finalExpression = false;
             string nextExpression = expression;
+            char nextExpressionSymbol = '?';
+            (string, char) expressionSymbolPair;
             Expression currentExpression = new Expression();
             
             while (!finalExpression)
             {
-                nextExpression = GetNextExpression(expression);
+                expressionSymbolPair = GetNextExpressionWithSymbol(expression);
+                nextExpression = expressionSymbolPair.Item1;
+                nextExpressionSymbol = expressionSymbolPair.Item2;
+
                 if (expression == nextExpression)
                 {
                     finalExpression = true;
                 }
-                currentExpression = Calculations.CalculateExpression(nextExpression);
+                currentExpression = Calculations.CalculateExpression(nextExpression, nextExpressionSymbol);
                 expression = expression.Replace(nextExpression, currentExpression.Result.ToString());
             }
 
             return expression;
         }
 
-        public static string GetNextExpression(string expression)
+
+
+        public static (string, char) GetNextExpressionWithSymbol(string expression)
         {
-            int subStringStartIndex = 0;
-            int subStringEndIndex = expression.Length;
+            //int subStringStartIndex = 0;
+            //int subStringEndIndex = expression.Length;
             int firstSymbolIndex = -1;
             int currentSymbolIndex = -1;
             int previousSymbolPriority = 1;
-            
-            foreach(Symbol symbol in Symbols)
+            char firstSymbol = '?';
+            (int, int) startEndIndex = (0, expression.Length);
+
+
+            foreach (Symbol symbol in Symbols)
             {
                 currentSymbolIndex = expression.IndexOf(symbol.SymbolChar);
-                if (currentSymbolIndex < 0) continue;
-           
-                firstSymbolIndex = firstSymbolIndex == -1? currentSymbolIndex: firstSymbolIndex;
-                string remaining = string.Empty;
 
-                do
+                if (currentSymbolIndex < 0) continue;
+
+                if (ParserTools.IsPreviousIndexASymbol(expression, currentSymbolIndex, Symbols))
                 {
-                    remaining = expression.Substring(currentSymbolIndex + 1);
-                    if (remaining.Contains(symbol.SymbolChar))
+                    currentSymbolIndex = ParserTools.GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
+                }
+
+                if (currentSymbolIndex < 0) continue;
+
+                if (firstSymbolIndex == -1)
+                {
+                    firstSymbolIndex = currentSymbolIndex;
+                    firstSymbol = symbol.SymbolChar;
+                    if(currentSymbolIndex == 0)
                     {
-                        //make sure negative / positive signs aren't replaced accidentally;
-                        int remainingIndex = expression.Remove(currentSymbolIndex, 1).IndexOf(symbol.SymbolChar) + 1;
-                        if (remainingIndex < subStringEndIndex && (expression[firstSymbolIndex + 1] != symbol.SymbolChar))
-                        {
-                            subStringEndIndex = remainingIndex;
-                        }
-                        previousSymbolPriority = symbol.Priority;
-                        currentSymbolIndex = remainingIndex;
-                        //continue;
+                        firstSymbolIndex = ParserTools.GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
                     }
                 }
-                while (remaining.Contains(symbol.SymbolChar));               
+
+                string remaining = string.Empty;
 
                 if(firstSymbolIndex == -1 || currentSymbolIndex == -1)
                 {
                     continue;
                 }
 
-                subStringStartIndex = ParserTools.GetStringStart(currentSymbolIndex, firstSymbolIndex, subStringStartIndex, previousSymbolPriority, symbol.Priority);
-
-                subStringEndIndex = ParserTools.GetStringEnd(currentSymbolIndex, firstSymbolIndex, subStringEndIndex, symbol, Symbols, expression, previousSymbolPriority);
+                do
+                {
+                    remaining = expression.Substring(currentSymbolIndex + 1);
+                    if(ParserTools.IsPreviousIndexASymbol(expression, currentSymbolIndex, Symbols)){
+                        continue;
+                    }
+                    startEndIndex = ParserTools.GetStartEndIndex(startEndIndex, firstSymbolIndex, currentSymbolIndex, symbol.SymbolChar, expression, remaining);
+                    if (remaining.Contains(symbol.SymbolChar))
+                    {
+                        //make sure negative / positive signs aren't replaced accidentally;
+                        int remainingIndex = ParserTools.GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
+                        //if (remainingIndex < startEndIndex.Item2 && (expression[firstSymbolIndex + 1] != symbol.SymbolChar))
+                        //{
+                        //    startEndIndex.Item2 = remainingIndex;
+                        //}
+                        currentSymbolIndex = remainingIndex;
+                        //continue;
+                    }
+                }
+                while (remaining.Contains(symbol.SymbolChar));               
 
                 previousSymbolPriority = symbol.Priority;
             }
 
             
-            string returnString = expression.Substring(subStringStartIndex, subStringEndIndex - subStringStartIndex);
+            string returnString = expression.Substring(startEndIndex.Item1, startEndIndex.Item2 - startEndIndex.Item1);
 
-            return returnString;
+            return (returnString, firstSymbol);
         }       
 
     public static Expression GetResults(string expression)
@@ -157,9 +183,12 @@ namespace Task3.Controller
                 expression = GetNextBracketExpression(expression);
             }
 
-            expression = GetNextExpression(expression);
+            (string, char) expressionSymbolPair = GetNextExpressionWithSymbol(expression);
 
-            result = Calculations.CalculateExpression(expression);
+            expression = expressionSymbolPair.Item1;
+            char symbol = expressionSymbolPair.Item2;
+
+            result = Calculations.CalculateExpression(expression, symbol);
 
             return result;
         }
@@ -185,12 +214,11 @@ namespace Task3.Controller
             return expression;            
         }
 
-        public static Expression GetExpressionModelFromString(string expression)
+        public static Expression GetExpressionModelFromString(string expression, char symbol)
         {
             Expression expressionModel = new Expression();
             expression = expression.Replace(" ", "");
 
-            char symbol = GetSymbol(expression);
             float leftValue = GetLeftValue(expression, symbol);
             float rightValue = GetRightValue(expression, symbol);
 
@@ -201,18 +229,6 @@ namespace Task3.Controller
             return expressionModel;
         }
 
-        static char GetSymbol(string expression)
-        {            
-            foreach (Symbol symbol in Symbols)
-            {
-                if(expression.Contains(symbol.SymbolChar))
-                {
-                    return symbol.SymbolChar;
-                }
-            }
-            return '?';
-        }
-
         static float GetLeftValue(string expression, char symbol)
         {
             float leftValue = 0f;
@@ -221,9 +237,13 @@ namespace Task3.Controller
                 return float.Parse(expression);
             }
 
-            leftValue = float.Parse(expression.Substring(0, expression.IndexOf(symbol)));
+            if (expression[0] == '-')
+            {
+                return float.Parse(expression.Substring(0, expression.Substring(1).IndexOf(symbol) + 1));
+            }
 
-            return leftValue;
+            return float.Parse(expression.Substring(0, expression.IndexOf(symbol)));
+
         }
 
         static float GetRightValue(string expression, char symbol)
@@ -235,6 +255,11 @@ namespace Task3.Controller
 
             int symbolIndex = expression.IndexOf(symbol);
             int expressionRemainder = expression.Length - 1;
+
+            if (expression[0] == '-')
+            {
+                symbolIndex = expression.Substring(1).IndexOf(symbol) + 1;
+            }
             
             expression = expression.Substring(symbolIndex + 1, expressionRemainder - symbolIndex);
 

@@ -5,9 +5,9 @@ namespace Task3.Controller
 {
     public static class Calculations
     {
-        public static Expression CalculateExpression(string expression)
+        public static Expression CalculateExpression(string expression, char symbol)
         {
-            Expression expressionModel = Parsers.GetExpressionModelFromString(expression);
+            Expression expressionModel = Parsers.GetExpressionModelFromString(expression, symbol);
              
             switch (expressionModel.Symbol)
             {

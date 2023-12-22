@@ -37,5 +37,46 @@ namespace Task3.Controller
             //}
             return subStringEndIndex;
         }
+
+        public static (int, int) GetStartEndIndex((int, int) startEndIndex, int anchorSymbolIndex, int incomingSymbolIndex, char symbol, string expression, string remaining)
+        {
+            int startIndex = startEndIndex.Item1;
+            int endIndex = startEndIndex.Item2;
+
+            if(incomingSymbolIndex < anchorSymbolIndex && incomingSymbolIndex > startIndex) // move starting point right
+            {
+                startIndex = incomingSymbolIndex + 1;
+            }
+            else if(incomingSymbolIndex > anchorSymbolIndex && incomingSymbolIndex < endIndex) // move ending point left
+            {
+                endIndex = incomingSymbolIndex;
+            }
+
+            return (startIndex, endIndex);
+        }
+
+        public static int GetRemainingSymbolIndex(string expression,  int symbolIndex, char symbol)
+        {
+            try
+            {
+                int newIndex = expression.Remove(symbolIndex, 1).IndexOf(symbol);
+
+                return newIndex == -1 ? newIndex : newIndex + 1;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+        public static bool IsPreviousIndexASymbol(string expression, int currentSymbolIndex, Symbol[] symbols)
+        {
+            if(currentSymbolIndex - 1 < 1)
+            {
+                return false;
+            }
+
+            return (symbols.Select(x => x.SymbolChar).Contains(expression[currentSymbolIndex - 1]));
+        }
     }
 }
