@@ -111,14 +111,29 @@ namespace Callback_Task
         {
             try
             {
-                _simpleSubscribers.AddOrUpdate(
-                        key,
-                        _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>> { subscriber }),
-                        (_, set) =>
-                        {
-                            set.Add(subscriber);
-                            return set;
-                        });
+                //Keats: this will work but is less readable. 
+
+                //_simpleSubscribers.AddOrUpdate(
+                //        key,
+                //        _ => new ConcurrentHashSet<Func<SimpleEventArgs, Task>>(new List<Func<SimpleEventArgs, Task>> { subscriber }),
+                //        (_, set) =>
+                //        {
+                //            set.Add(subscriber);
+                //            return set;
+                //        });
+
+                //In sando we have a preference for the following pattern:
+
+                ConcurrentHashSet<Func<SimpleEventArgs, Task>> callbacks;
+                if (!_simpleSubscribers.TryGetValue(key, out callbacks))
+                {
+                    callbacks = new() { subscriber };
+                    _simpleSubscribers.TryAdd(key, callbacks);
+                }
+                else
+                {
+                    callbacks.Add(subscriber);
+                }
             }
             catch (Exception)
             {

@@ -11,7 +11,7 @@ namespace CallBack_Task
             UpdateUIByTimerStatus();
         }
 
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         SimpleMessageProvider simpleMessageProvider = SimpleMessageProvider.Instance;
 
@@ -22,7 +22,10 @@ namespace CallBack_Task
             {
                 string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
                 // Process the simple message asynchronously
-                log.Info($"Received simple message: {e.Message}");
+
+                Logger.Instance.LogInfo($"Received simple message: {e.Message}");
+                //log.Info($"Received simple message: {e.Message}");
+
                 // Update UI element on the UI thread
                 if (rtxtEvent.InvokeRequired)
                 {
@@ -34,18 +37,20 @@ namespace CallBack_Task
                 }
                 pnlEventSub.BackColor = Color.Green;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //throw;
+                Logger.Instance.LogError(ex.Message);
             }
         }
-        async Task HandleEvenMessage(SimpleEventArgs e)
+
+        private async Task HandleEvenMessage(SimpleEventArgs e)
         {
             try
             {
                 string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
                 // Process the even message asynchronously
-                log.Info($"Received even message: {e.Message}");
+                Logger.Instance.LogInfo($"Received even message: {e.Message}");
+                //log.Info($"Received even message: {e.Message}");
                 // Update UI element on the UI thread
                 if (rtxtEvenCallback.InvokeRequired)
                 {
@@ -59,15 +64,16 @@ namespace CallBack_Task
             }
             catch (Exception ex)
             {
-                throw;
+                Logger.Instance.LogError(ex.Message);
             }
         }
 
-        async Task HandleOddMessage(SimpleEventArgs e)
+        private async Task HandleOddMessage(SimpleEventArgs e)
         {
             string message = e.Message + ": " + DateTime.Now.ToString("HH:mm:ss");
             // Process the odd message asynchronously
-            log.Info($"Received odd message: {e.Message}");
+            Logger.Instance.LogInfo($"Received odd message: {e.Message}");
+            //log.Info($"Received odd message: {e.Message}");
             // Update UI element on the UI thread
             if (rtxtOddCallback.InvokeRequired)
             {
@@ -86,6 +92,7 @@ namespace CallBack_Task
             btnTimerToggle.Text = simpleMessageProvider.IsTimerRunning ? "Stop Timer" : "Start Timer";
         }
 
+        //Keats: you'd want to put try catch around the entry point to each new thread, i.e. in these button click handlers below:
 
         private void btnTimerToggle_Click(object sender, EventArgs e)
         {
