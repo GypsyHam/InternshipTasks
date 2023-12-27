@@ -1,4 +1,5 @@
 ﻿using Task3.View;
+using static Task3.Controller.ParserTools;
 
 namespace Task3.Controller
 {
@@ -103,8 +104,6 @@ namespace Task3.Controller
 
         public static (string, char) GetNextExpressionWithSymbol(string expression)
         {
-            //int subStringStartIndex = 0;
-            //int subStringEndIndex = expression.Length;
             int firstSymbolIndex = -1;
             int currentSymbolIndex = -1;
             int previousSymbolPriority = 1;
@@ -116,52 +115,24 @@ namespace Task3.Controller
             {
                 currentSymbolIndex = expression.IndexOf(symbol.SymbolChar);
 
-                if (currentSymbolIndex < 0) continue;
+                
+                currentSymbolIndex = GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
+                
 
-                if (ParserTools.IsPreviousIndexASymbol(expression, currentSymbolIndex, Symbols))
-                {
-                    currentSymbolIndex = ParserTools.GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
-                }
-
-                if (currentSymbolIndex < 0) continue;
+                if (currentSymbolIndex < 1) continue;
 
                 if (firstSymbolIndex == -1)
                 {
                     firstSymbolIndex = currentSymbolIndex;
                     firstSymbol = symbol.SymbolChar;
-                    if(currentSymbolIndex == 0)
-                    {
-                        firstSymbolIndex = ParserTools.GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
-                    }
                 }
 
-                string remaining = string.Empty;
-
-                if(firstSymbolIndex == -1 || currentSymbolIndex == -1)
+                if (firstSymbolIndex == -1 || currentSymbolIndex == -1)
                 {
                     continue;
                 }
 
-                do
-                {
-                    remaining = expression.Substring(currentSymbolIndex + 1);
-                    if(ParserTools.IsPreviousIndexASymbol(expression, currentSymbolIndex, Symbols)){
-                        continue;
-                    }
-                    startEndIndex = ParserTools.GetStartEndIndex(startEndIndex, firstSymbolIndex, currentSymbolIndex, symbol.SymbolChar, expression, remaining);
-                    if (remaining.Contains(symbol.SymbolChar))
-                    {
-                        //make sure negative / positive signs aren't replaced accidentally;
-                        int remainingIndex = ParserTools.GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
-                        //if (remainingIndex < startEndIndex.Item2 && (expression[firstSymbolIndex + 1] != symbol.SymbolChar))
-                        //{
-                        //    startEndIndex.Item2 = remainingIndex;
-                        //}
-                        currentSymbolIndex = remainingIndex;
-                        //continue;
-                    }
-                }
-                while (remaining.Contains(symbol.SymbolChar));               
+                startEndIndex = GetClosestSymbolsToAnchor(expression, firstSymbolIndex, startEndIndex, symbol.SymbolChar);           
 
                 previousSymbolPriority = symbol.Priority;
             }

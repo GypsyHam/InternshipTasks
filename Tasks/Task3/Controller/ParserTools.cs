@@ -38,30 +38,40 @@ namespace Task3.Controller
             return subStringEndIndex;
         }
 
-        public static (int, int) GetStartEndIndex((int, int) startEndIndex, int anchorSymbolIndex, int incomingSymbolIndex, char symbol, string expression, string remaining)
-        {
-            int startIndex = startEndIndex.Item1;
-            int endIndex = startEndIndex.Item2;
+        //public static (int, int) GetStartEndIndex((int, int) startEndIndex, int anchorSymbolIndex, int incomingSymbolIndex, char symbol, string expression)
+        //{
+        //    int startIndex = startEndIndex.Item1;
+        //    int endIndex = startEndIndex.Item2;
 
-            if(incomingSymbolIndex < anchorSymbolIndex && incomingSymbolIndex > startIndex) // move starting point right
-            {
-                startIndex = incomingSymbolIndex + 1;
-            }
-            else if(incomingSymbolIndex > anchorSymbolIndex && incomingSymbolIndex < endIndex) // move ending point left
-            {
-                endIndex = incomingSymbolIndex;
-            }
+        //    if(incomingSymbolIndex < anchorSymbolIndex && incomingSymbolIndex > startIndex) // move starting point right
+        //    {
+        //        startIndex = incomingSymbolIndex + 1;
+        //    }
+        //    else if(incomingSymbolIndex > anchorSymbolIndex && incomingSymbolIndex < endIndex) // move ending point left
+        //    {
+        //        endIndex = incomingSymbolIndex;
+        //    }
 
-            return (startIndex, endIndex);
-        }
+        //    return (startIndex, endIndex);
+        //}
 
-        public static int GetRemainingSymbolIndex(string expression,  int symbolIndex, char symbol)
+        public static int GetRemainingSymbolIndex(string expression, int symbolIndex, char symbol)
         {
             try
             {
-                int newIndex = expression.Remove(symbolIndex, 1).IndexOf(symbol);
+                if(symbolIndex == -1)
+                {
+                    return -1;
+                }
 
-                return newIndex == -1 ? newIndex : newIndex + 1;
+                int firstSymbolAfterZero = GetNextSymbolIndexIfZero(expression, symbolIndex, symbol);
+
+                if (firstSymbolAfterZero < 1)
+                {
+                    return -1;
+                }
+
+                return firstSymbolAfterZero;
             }
             catch (Exception)
             {
@@ -69,14 +79,40 @@ namespace Task3.Controller
             }
         }
 
-        public static bool IsPreviousIndexASymbol(string expression, int currentSymbolIndex, Symbol[] symbols)
+        static int GetNextSymbolIndexIfZero(string expression, int symbolIndex, char symbol)
         {
-            if(currentSymbolIndex - 1 < 1)
+            if(symbolIndex == 0)
             {
-                return false;
+                return expression.Substring(symbolIndex + 1).IndexOf(symbol) + 1;
+            }
+            else
+            {
+                return symbolIndex;
             }
 
-            return (symbols.Select(x => x.SymbolChar).Contains(expression[currentSymbolIndex - 1]));
+        }
+
+        public static (int, int) GetClosestSymbolsToAnchor(string expression, int anchor, (int, int) startEndIndex, char symbol)
+        {
+            int closestLeftSymbol = startEndIndex.Item1;
+            int closestRightSymbol = startEndIndex.Item2;
+
+            for (int i = 0; i < expression.Length; i++)
+            {
+                if(expression[i] == symbol && i < anchor && i >= startEndIndex.Item1)
+                {
+                    closestLeftSymbol = i + 1;
+                }
+
+                if (expression[i] == symbol && i > anchor + 1 && i <= startEndIndex.Item2)
+                {
+                    closestRightSymbol = i;
+                    break;
+                }
+            }
+
+            return (closestLeftSymbol, closestRightSymbol);
         }
     }
+
 }
