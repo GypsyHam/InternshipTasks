@@ -99,7 +99,7 @@ namespace Task3.Controller
 
             for (int i = 0; i < expression.Length; i++)
             {
-                if(expression[i] == symbol && i < anchor && i >= startEndIndex.Item1)
+                if(expression[i] == symbol && i > 0 && i < anchor && i >= startEndIndex.Item1)
                 {
                     closestLeftSymbol = i + 1;
                 }
