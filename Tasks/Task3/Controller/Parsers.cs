@@ -100,8 +100,6 @@ namespace Task3.Controller
             return expression;
         }
 
-
-
         public static (string, char) GetNextExpressionWithSymbol(string expression)
         {
             int firstSymbolIndex = -1;
@@ -142,27 +140,6 @@ namespace Task3.Controller
 
             return (returnString, firstSymbol);
         }       
-
-    public static Expression GetResults(string expression)
-        {
-            Expression result = new Expression();
-
-            expression = expression.Replace(" ", "");
-
-            if (expression.Contains('('))
-            {
-                expression = GetNextBracketExpression(expression);
-            }
-
-            (string, char) expressionSymbolPair = GetNextExpressionWithSymbol(expression);
-
-            expression = expressionSymbolPair.Item1;
-            char symbol = expressionSymbolPair.Item2;
-
-            result = Calculations.CalculateExpression(expression, symbol);
-
-            return result;
-        }
 
         static string GetNextBracketExpression(string expression)
         {

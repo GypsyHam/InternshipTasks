@@ -27,5 +27,16 @@ namespace Task3
             }
 
         }
+
+        private void txtRawExpression_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string allowedCharacters = "0123456789*/+-()";
+
+            if (!allowedCharacters.Contains(char.ToUpper(e.KeyChar)))
+            {
+                e.Handled = true;
+                MessageBox.Show("Invalid key pressed. Only use numbers or arithmatic symbols [*, +, /, -, (, )]");
+            }
+        }
     }
 }
