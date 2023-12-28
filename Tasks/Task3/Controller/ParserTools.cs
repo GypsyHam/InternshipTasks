@@ -1,4 +1,5 @@
-﻿using Task3.View;
+﻿using System;
+using Task3.View;
 
 namespace Task3.Controller
 {
@@ -32,13 +33,18 @@ namespace Task3.Controller
         {
             if(symbolIndex == 0)
             {
-                return expression.Substring(symbolIndex + 1).IndexOf(symbol) + 1;
+                for(int i = 1; i < expression.Length; i++)
+                {
+                    if(!IsPreviousCharacterASymbol(expression, i) && symbol == expression[i]){
+                        return i;
+                    }
+                }
+                return -1;
             }
             else
             {
                 return symbolIndex;
             }
-
         }
 
         public static (int, int) GetClosestSymbolsToAnchor(string expression, int anchor, (int, int) startEndIndex, char symbol)
@@ -50,7 +56,7 @@ namespace Task3.Controller
             {
                 if(expression[i] == symbol && i > 0 && i < anchor && i >= startEndIndex.Item1)
                 {
-                    closestLeftSymbol = i + 1;
+                    closestLeftSymbol = IsPreviousCharacterASymbol(expression, i)? i : i + 1;
                 }
 
                 if (expression[i] == symbol && i > anchor + 1 && i <= startEndIndex.Item2)
@@ -61,6 +67,12 @@ namespace Task3.Controller
             }
 
             return (closestLeftSymbol, closestRightSymbol);
+        }
+
+        public static bool IsPreviousCharacterASymbol(string expression, int index)
+        {
+            string symbols = "*/-+";
+            return symbols.Contains(expression[index-1]);
         }
     }
 

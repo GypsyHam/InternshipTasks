@@ -30,7 +30,13 @@ namespace Task3
 
         private void txtRawExpression_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string allowedCharacters = "0123456789*/+-()";
+            if (e.KeyChar == (char)Keys.Back || e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = false;
+                return;
+            }
+
+            string allowedCharacters = "0123456789*/+-()=";
 
             if (!allowedCharacters.Contains(char.ToUpper(e.KeyChar)))
             {

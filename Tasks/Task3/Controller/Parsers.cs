@@ -5,12 +5,7 @@ namespace Task3.Controller
 {
     public static class Parsers
     {
-        static Symbol[] Symbols = new Symbol[]{
-            new Symbol { SymbolChar = '*', Priority = 1},
-            new Symbol { SymbolChar = '/', Priority = 1},
-            new Symbol { SymbolChar = '-', Priority = 2},
-            new Symbol { SymbolChar = '+', Priority = 2},
-        };
+        static string symbols = "*/-+";
 
         
         public static bool IsExpressionValid(List<string> expressions)
@@ -104,25 +99,22 @@ namespace Task3.Controller
         {
             int firstSymbolIndex = -1;
             int currentSymbolIndex = -1;
-            int previousSymbolPriority = 1;
             char firstSymbol = '?';
             (int, int) startEndIndex = (0, expression.Length);
 
 
-            foreach (Symbol symbol in Symbols)
+            foreach (char symbol in symbols)
             {
-                currentSymbolIndex = expression.IndexOf(symbol.SymbolChar);
-
+                currentSymbolIndex = expression.IndexOf(symbol);
                 
-                currentSymbolIndex = GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol.SymbolChar);
-                
+                currentSymbolIndex = GetRemainingSymbolIndex(expression, currentSymbolIndex, symbol);
 
                 if (currentSymbolIndex < 1) continue;
 
                 if (firstSymbolIndex == -1)
                 {
                     firstSymbolIndex = currentSymbolIndex;
-                    firstSymbol = symbol.SymbolChar;
+                    firstSymbol = symbol;
                 }
 
                 if (firstSymbolIndex == -1 || currentSymbolIndex == -1)
@@ -130,9 +122,7 @@ namespace Task3.Controller
                     continue;
                 }
 
-                startEndIndex = GetClosestSymbolsToAnchor(expression, firstSymbolIndex, startEndIndex, symbol.SymbolChar);           
-
-                previousSymbolPriority = symbol.Priority;
+                startEndIndex = GetClosestSymbolsToAnchor(expression, firstSymbolIndex, startEndIndex, symbol);           
             }
 
             
